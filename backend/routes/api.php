@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware' => ['api']], function () {
+    Route::post('app/main/getforms',array('as'=>'get all form data','uses'=>'App\Http\Controllers\FormController@checkLogged'));
+    Route::post('app/main/login',array('as'=>'login check with email password','uses'=>'App\Http\Controllers\LoginController@userLogin'));
+
+    
+});
