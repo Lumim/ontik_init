@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['api']], function () {
     Route::get('app/main/getforms',array('as'=>'get all form data','uses'=>'App\Http\Controllers\FormController@getForm'));
     Route::post('app/main/addform/data',array('as'=>'add form data','uses'=>'App\Http\Controllers\FormController@addForm'));
-
+    Route::get('app/main/deleteform/{id}',array('as'=>'delete form data','uses'=>'App\Http\Controllers\FormController@deleteForm'));
+    
     
 });

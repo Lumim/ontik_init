@@ -73,6 +73,28 @@ class FormController extends BaseController
 
     }  
 
+    //delete form
+
+    public function deleteForm(Request $response,$id){
+        $now = date('y-m-d h:i:s');
+        $db_delete=\DB::table('form_type')->where('id',"=",$id)->delete();
+        if($db_delete){
+            $response["success"]=[
+                'statusCode'=>200,
+                'server_message'=>'successfully deleted',
+                'server_code'=>$now,
+            ];
+            return response()->json($response);
+        }
+        else{
+           $response["success"]=[
+            'statusCode'=>300,
+            'server_message'=>'Could not delete',
+            'server_code'=>$now,
+           ];
+        }
+    }
+
 
 
 
