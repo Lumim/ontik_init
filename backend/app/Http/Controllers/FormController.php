@@ -10,12 +10,7 @@ use Illuminate\Http\Request;
 class FormController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-
-    public function getForm(){
-
-    }
-
+ 
 
     // add form data to db
 
@@ -30,16 +25,16 @@ class FormController extends BaseController
         if(!empty($db_insert)){
             $response["success"]=[
                 "StatusCode"=>200,
-                "success message"=>"inserted form data",
-                "server reference code"=>$now
+                "success_message"=>"inserted form data",
+                "server_reference_code"=>$now
             ];
             return response()->json($response);
         }
         else{
             $response["success"]=[
                 "StatusCode"=>300,
-                "succsess message"=>"data not inserted",
-                "server ref code"=>$now,
+                "succsess_essage"=>"data not inserted",
+                "server_ref_code"=>$now,
             ];
 
             $response['data']=$data;
@@ -49,10 +44,34 @@ class FormController extends BaseController
     }
 
     //get form data
-/* 
+
     public function getForm(Request $response){
-        return
-    } */
+        $now=date('y-m-d h:i:s');
+        try{
+
+            $form_data= \DB::table('form_type')->get();
+
+            $response["success"]=[
+                "statusCode"=>200,
+                "success_message"=>"found all form data",
+                "server_code"=>$now,
+            ];
+            $response["form_data"]=$form_data;
+            return response()->json($response);
+
+
+        }
+        catch(\Exception $e){
+            $response ["success"]=[
+                "statusCode"=>501,
+                "message"=>"error no data found",
+                "serverCode"=>$now
+            ];
+            $response["e_Message"]="Message: ".$e->getMessage()."File: ".$e->getFile()."Line: ".$e->getLine();
+            return response()->json($response);
+        }
+
+    }  
 
 
 
